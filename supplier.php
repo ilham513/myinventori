@@ -23,59 +23,7 @@ cek_session();
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
-	<style>
-	body{
-    background:#FAFAFA;
-}
-.order-card {
-    color: #fff;
-}
-
-.bg-c-blue {
-    background: linear-gradient(45deg,#4099ff,#73b4ff);
-}
-
-.bg-c-green {
-    background: linear-gradient(45deg,#2ed8b6,#59e0c5);
-}
-
-.bg-c-yellow {
-    background: linear-gradient(45deg,#FFB64D,#ffcb80);
-}
-
-.bg-c-pink {
-    background: linear-gradient(45deg,#FF5370,#ff869a);
-}
-
-
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    border: none;
-    margin-bottom: 30px;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-}
-
-.card .card-block {
-    padding: 25px;
-}
-
-.order-card i {
-    font-size: 26px;
-}
-
-.f-left {
-    float: left;
-}
-
-.f-right {
-    float: right;
-}
-	</style>
-	
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">	
 
 </head>
 
@@ -99,35 +47,42 @@ cek_session();
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">				
+                <div class="container-fluid">
+					<!-- Page Heading -->
+					<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Kategori</h1>
+						<a href="#" class="btn btn-success shadow-sm">
+						<i class="fas fa-plus mr-1"></i> Tambah Kategori</a>
+					</div>
+					
 					<div class="container">
-						<div class="row">
-							<div class="col-md-4 col-xl-3">
-								<div class="card bg-c-blue order-card" onclick="window.location.replace('produk.php');">
-									<div class="card-block">
-										<h4 class="m-b-20">Produk</h4>
-										<p class="m-b-0">Jumlah Produk<span class="f-right">351</span></p>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-4 col-xl-3">
-								<div class="card bg-c-green order-card" onclick="window.location.replace('kategori.php');">
-									<div class="card-block">
-										<h4 class="m-b-20">Kategori</h4>
-										<p class="m-b-0">Jumlah Kategori<span class="f-right">351</span></p>
-									</div>
-								</div>
-							</div>
-							
-							<div class="col-md-4 col-xl-3">
-								<div class="card bg-c-yellow order-card" onclick="window.location.replace('supplier.php');">
-									<div class="card-block">
-										<h4 class="m-b-20">Supplier</h4>
-										<p class="m-b-0">Jumlah Supplier<span class="f-right">351</span></p>
-									</div>
-								</div>
-							</div>								
+						<div class="row bg-white">
+							<table class="table table-bordered" id="dataTable" cellspacing="0">
+								<thead class="table-dark">
+									<tr>
+										<th>No</th>
+										<th>Nama Supplier</th>
+										<th>Alamat</th>
+										<th>Email</th>
+										<th>Telpon</th>
+										<th>Aksi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Supplier A</td>
+										<td>Alamat A</td>
+										<td>EmailA@email.com</td>
+										<td>08XXXXX</td>
+										<td>
+											<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>
+											<button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
+										</td>
+									</tr>
+								</tbody>
+							</table>						
+								
 						</div>
 					</div>
                 </div>
