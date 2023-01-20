@@ -3,6 +3,18 @@ include '_koneksi.php';
 include '_method.php';
 
 cek_session();
+
+$sql = "SELECT * FROM kategori";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $kategori[] = $row;
+  }
+} else {
+  echo "0 results";
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +63,7 @@ cek_session();
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 class="h3 mb-0 text-gray-800">Kategori</h1>
-						<a href="#" class="btn btn-success shadow-sm">
+						<a href="kategori_tambah.php" class="btn btn-success shadow-sm">
 						<i class="fas fa-plus mr-1"></i> Tambah Kategori</a>
 					</div>
 					
@@ -66,22 +78,16 @@ cek_session();
 									</tr>
 								</thead>
 								<tbody>
+								<?php foreach($kategori as $kategori): ?>
 									<tr>
-										<td>1</td>
-										<td>Kategori A</td>
+										<td><?= $kategori['id_kategori'] ?></td>
+										<td><?= $kategori['nama_kategori'] ?></td>
 										<td>
-											<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>
-											<button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
+											<!--<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>-->
+											<a href="kategori_delete_go.php?id_kategori=<?= $kategori['id_kategori'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>
 										</td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>Kategori B</td>
-										<td>
-											<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>
-											<button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
-										</td>
-									</tr>
+								<?php endforeach; ?>
 								</tbody>
 							</table>						
 								

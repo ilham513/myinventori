@@ -4,13 +4,15 @@ include '_method.php';
 
 cek_session();
 
-$sql = "SELECT * FROM supplier";
+$id_supplier = $_GET['id_supplier'];
+
+$sql = "SELECT * FROM supplier WHERE id_supplier = '$id_supplier'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $supplier[] = $row;
+    $supplier = $row;
   }
 } else {
   echo "0 results";
@@ -62,42 +64,34 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Supplier</h1>
-						<a href="supplier_tambah.php" class="btn btn-success shadow-sm">
-						<i class="fas fa-plus mr-1"></i> Tambah Supplier</a>
+						<h1 class="h3 mb-0 text-gray-800">Edit Supplier</h1>
 					</div>
 					
 					<div class="container">
-						<div class="row bg-white">
-							<table class="table table-bordered" id="dataTable" cellspacing="0">
-								<thead class="table-dark">
-									<tr>
-										<th>No</th>
-										<th>Nama Supplier</th>
-										<th>Alamat</th>
-										<th>Email</th>
-										<th>Telpon</th>
-										<th>Aksi</th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php foreach($supplier as $supplier): ?>
-									<tr>
-										<td><?= $supplier['id_supplier'] ?></td>
-										<td><?= $supplier['nama_supplier'] ?></td>
-										<td><?= $supplier['alamat'] ?></td>
-										<td><?= $supplier['email'] ?></td>
-										<td><?= $supplier['telpon'] ?></td>
-										<td>
-											<a href="supplier_edit.php?id_supplier=<?= $supplier['id_supplier'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>
-											<a href="supplier_delete_go.php?id_supplier=<?= $supplier['id_supplier'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-								</tbody>
-							</table>						
-								
-						</div>
+						
+						<form method="post" action="supplier_edit_go.php">
+						  <input type="hidden" name="id_supplier" value="<?= $supplier['id_supplier']  ?>">
+						  
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Nama</label>
+							<input name="nama_supplier" type="text" class="form-control" value="<?= $supplier['nama_supplier']  ?>">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Alamat</label>
+							<input name="alamat" type="text" class="form-control" value="<?= $supplier['alamat']  ?>">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+							<input name="email" type="text" class="form-control" value="<?= $supplier['email']  ?>">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Telpon</label>
+							<input name="telpon" type="text" class="form-control" value="<?= $supplier['telpon']  ?>">
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+									
 					</div>
                 </div>
                 <!-- /.container-fluid -->
