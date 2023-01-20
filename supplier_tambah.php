@@ -3,11 +3,6 @@ include '_koneksi.php';
 include '_method.php';
 
 cek_session();
-
-$sql = "SELECT * FROM supplier";
-$result = $conn->query($sql);
-
-echo $result->num_rows > 0;
 ?>
 
 <!DOCTYPE html>
@@ -55,42 +50,32 @@ echo $result->num_rows > 0;
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Supplier</h1>
-						<a href="supplier_tambah.php" class="btn btn-success shadow-sm">
-						<i class="fas fa-plus mr-1"></i> Tambah Supplier</a>
+						<h1 class="h3 mb-0 text-gray-800">Tambah Supplier</h1>
 					</div>
 					
 					<div class="container">
-						<div class="row bg-white">
-							<table class="table table-bordered" id="dataTable" cellspacing="0">
-								<thead class="table-dark">
-									<tr>
-										<th>No</th>
-										<th>Nama Supplier</th>
-										<th>Alamat</th>
-										<th>Email</th>
-										<th>Telpon</th>
-										<th>Aksi</th>
-									</tr>
-								</thead>
-								<tbody>
-								<?php foreach($supplier as $supplier): ?>
-									<tr>
-										<td>1</td>
-										<td>Supplier A</td>
-										<td>Alamat A</td>
-										<td>EmailA@email.com</td>
-										<td>08XXXXX</td>
-										<td>
-											<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>
-											<button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-								</tbody>
-							</table>						
-								
-						</div>
+						
+						<form method="post" action="supplier_tambah_go.php">
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Nama</label>
+							<input name="nama_supplier" type="text" class="form-control">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Alamat</label>
+							<input name="alamat" type="text" class="form-control">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Email</label>
+							<input name="email" type="text" class="form-control">
+						  </div>
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Telpon</label>
+							<input name="telpon" type="text" class="form-control">
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+									
 					</div>
                 </div>
                 <!-- /.container-fluid -->
