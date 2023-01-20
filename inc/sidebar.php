@@ -28,8 +28,8 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="produk.php">List Produk</a>
-                        <a class="collapse-item" href="cards.html">&#x2022; Produk Masuk</a>
-                        <a class="collapse-item" href="cards.html">&#x2022; Produk Keluar</a>
+                        <a class="collapse-item" href="cards.html">Produk Masuk</a>
+                        <a class="collapse-item" href="cards.html">Produk Keluar</a>
                     </div>
                 </div>
             </li>
