@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 20 Jan 2023 pada 23.18
+-- Generation Time: 21 Jan 2023 pada 03.12
 -- Versi Server: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -62,6 +62,29 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `produk`
+--
+
+CREATE TABLE `produk` (
+  `id_produk` int(255) NOT NULL,
+  `nama_produk` varchar(255) NOT NULL,
+  `id_kategori` int(255) NOT NULL,
+  `harga` int(255) NOT NULL,
+  `qty` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`, `qty`) VALUES
+(1, 'Produk A', 1, 10000, 0),
+(2, 'Produk B', 1, 20000, 0),
+(3, 'Produk C', 1, 999, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `supplier`
 --
 
@@ -99,6 +122,12 @@ ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
+-- Indexes for table `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`);
+
+--
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -117,12 +146,17 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id_kategori` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kategori` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id_produk` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id_supplier` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_supplier` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
