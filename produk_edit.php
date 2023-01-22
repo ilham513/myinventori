@@ -4,20 +4,32 @@ include '_method.php';
 
 cek_session();
 
-$sql = "SELECT * FROM produk 
-INNER JOIN kategori 
-ON produk.id_kategori = kategori.id_kategori";
+$id_produk = $_GET['id_produk'];
 
+$sql = "SELECT * FROM produk WHERE id_produk = '$id_produk'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $produk[] = $row;
+    $produk = $row;
   }
 } else {
   echo "0 results";
 }
+
+$sql = "SELECT * FROM kategori";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $kategori[] = $row;
+  }
+} else {
+  echo "0 results";
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -65,44 +77,36 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Produk</h1>
-						<a href="produk_tambah.php" class="btn btn-success shadow-sm">
-						<i class="fas fa-plus mr-1"></i> Tambah Produk</a>
+						<h1 class="h3 mb-0 text-gray-800">Edit Produk</h1>
 					</div>
 					
 					<div class="container">
-						<div class="row bg-white">
-							<table class="table table-bordered" id="dataTable" cellspacing="0">
-								<thead class="table-dark">
-									<tr>
-										<th>No</th>
-										<th>Nama Produk</th>
-										<th>Harga</th>
-										<th>Qty</th>
-										<th>Kategori</th>
-										<th>Aksi</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								<?php foreach($produk as $produk): ?>
-									<tr>
-										<td><?= $produk['id_produk'] ?></td>
-										<td><?= $produk['nama_produk'] ?></td>
-										<td><?= $produk['harga'] ?></td>
-										<td><?= $produk['qty'] ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td>
-											<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>
-											<!--<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>-->
-										</td>
-									</tr>
-								<?php endforeach; ?>
-
-								</tbody>
-							</table>						
-								
-						</div>
+						
+						<form method="post" action="produk_edit_go.php">
+						  <input type="hidden" name="id_produk" value="<?= $produk['id_produk']  ?>">
+						  
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Nama</label>
+							<input name="nama_produk" type="text" class="form-control" value="<?= $produk['nama_produk']  ?>">
+						  </div>
+						  
+						  <div class="form-group">
+							<label for="exampleFormControlSelect1">Kategori</label>
+							<select name="id_kategori" class="form-control" id="exampleFormControlSelect1">
+							<?php foreach($kategori as $kategori): ?>
+							  <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+							<?php endforeach; ?>
+							</select>
+						  </div>
+						  
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Harga</label>
+							<input name="harga" type="number" class="form-control" value="<?= $produk['harga']  ?>">
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+									
 					</div>
                 </div>
                 <!-- /.container-fluid -->
