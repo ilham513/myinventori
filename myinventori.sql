@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.6.5.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2023 at 09:49 AM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- Generation Time: 24 Jan 2023 pada 00.56
+-- Versi Server: 10.1.21-MariaDB
+-- PHP Version: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -24,7 +23,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `akun`
+-- Struktur dari tabel `akun`
 --
 
 CREATE TABLE `akun` (
@@ -35,7 +34,7 @@ CREATE TABLE `akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `akun`
+-- Dumping data untuk tabel `akun`
 --
 
 INSERT INTO `akun` (`id`, `username`, `password`, `jabatan`) VALUES
@@ -44,7 +43,7 @@ INSERT INTO `akun` (`id`, `username`, `password`, `jabatan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategori`
+-- Struktur dari tabel `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -53,7 +52,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `kategori`
+-- Dumping data untuk tabel `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
@@ -63,7 +62,7 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk`
+-- Struktur dari tabel `produk`
 --
 
 CREATE TABLE `produk` (
@@ -74,7 +73,7 @@ CREATE TABLE `produk` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `produk`
+-- Dumping data untuk tabel `produk`
 --
 
 INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`) VALUES
@@ -86,18 +85,18 @@ INSERT INTO `produk` (`id_produk`, `nama_produk`, `id_kategori`, `harga`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk_keluar`
+-- Struktur dari tabel `produk_keluar`
 --
 
 CREATE TABLE `produk_keluar` (
   `id_keluar` int(255) NOT NULL,
   `id_produk` int(255) NOT NULL,
   `qty_keluar` int(255) NOT NULL,
-  `tgl_keluar` timestamp NOT NULL DEFAULT current_timestamp()
+  `tgl_keluar` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `produk_keluar`
+-- Dumping data untuk tabel `produk_keluar`
 --
 
 INSERT INTO `produk_keluar` (`id_keluar`, `id_produk`, `qty_keluar`, `tgl_keluar`) VALUES
@@ -107,7 +106,7 @@ INSERT INTO `produk_keluar` (`id_keluar`, `id_produk`, `qty_keluar`, `tgl_keluar
 -- --------------------------------------------------------
 
 --
--- Table structure for table `produk_masuk`
+-- Struktur dari tabel `produk_masuk`
 --
 
 CREATE TABLE `produk_masuk` (
@@ -116,21 +115,22 @@ CREATE TABLE `produk_masuk` (
   `id_supplier` int(255) NOT NULL,
   `kadaluarsa` date NOT NULL,
   `qty` int(255) NOT NULL,
-  `tgl_masuk` timestamp NOT NULL DEFAULT current_timestamp()
+  `tgl_masuk` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `produk_masuk`
+-- Dumping data untuk tabel `produk_masuk`
 --
 
 INSERT INTO `produk_masuk` (`id_masuk`, `id_produk`, `id_supplier`, `kadaluarsa`, `qty`, `tgl_masuk`) VALUES
 (1, 1, 1, '2023-01-27', 10, '2023-01-23 07:07:26'),
-(2, 2, 3, '2023-01-27', 10, '2023-01-23 07:07:39');
+(2, 2, 3, '2023-01-27', 10, '2023-01-23 07:07:39'),
+(3, 1, 1, '2023-02-02', 100, '2023-01-23 23:22:41');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Struktur dari tabel `supplier`
 --
 
 CREATE TABLE `supplier` (
@@ -142,7 +142,7 @@ CREATE TABLE `supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `supplier`
+-- Dumping data untuk tabel `supplier`
 --
 
 INSERT INTO `supplier` (`id_supplier`, `nama_supplier`, `alamat`, `email`, `telpon`) VALUES
@@ -202,54 +202,47 @@ ALTER TABLE `supplier`
 --
 ALTER TABLE `akun`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `produk_keluar`
 --
 ALTER TABLE `produk_keluar`
   MODIFY `id_keluar` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `produk_masuk`
 --
 ALTER TABLE `produk_masuk`
-  MODIFY `id_masuk` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id_masuk` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `supplier`
 --
 ALTER TABLE `supplier`
   MODIFY `id_supplier` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
 
 --
--- Constraints for dumped tables
---
-
---
--- Constraints for table `produk`
+-- Ketidakleluasaan untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`id_kategori`) REFERENCES `kategori` (`id_kategori`);
 
 --
--- Constraints for table `produk_masuk`
+-- Ketidakleluasaan untuk tabel `produk_masuk`
 --
 ALTER TABLE `produk_masuk`
   ADD CONSTRAINT `produk_masuk_ibfk_1` FOREIGN KEY (`id_produk`) REFERENCES `produk` (`id_produk`),
   ADD CONSTRAINT `produk_masuk_ibfk_2` FOREIGN KEY (`id_supplier`) REFERENCES `supplier` (`id_supplier`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

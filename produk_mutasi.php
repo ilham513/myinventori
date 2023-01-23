@@ -4,9 +4,12 @@ include '_method.php';
 
 cek_session();
 
+$id_produk = $_GET['id_produk'];
+
 $sql = "SELECT * FROM produk 
 INNER JOIN kategori 
-ON produk.id_kategori = kategori.id_kategori";
+ON produk.id_kategori = kategori.id_kategori
+WHERE produk.id_produk = $id_produk";
 
 $result = $conn->query($sql);
 
@@ -65,7 +68,7 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Produk</h1>
+						<h1 class="h3 mb-0 text-gray-800">Mutasi Produk</h1>
 						<a href="produk_tambah.php" class="btn btn-success shadow-sm">
 						<i class="fas fa-plus mr-1"></i> Tambah Produk</a>
 					</div>
@@ -91,9 +94,9 @@ if ($result->num_rows > 0) {
 										<td><?= $produk['harga'] ?></td>
 										<td><?= $produk['nama_kategori'] ?></td>
 										<td>
-											<a href="produk_mutasi.php?id_produk=<?= $produk['id_produk'] ?>">Lihat Mutasi </a> | 
-											<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>">Edit</a> | 
-											<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>">Hapus</a>
+											<a href="produk_mutasi.php">Lihat Mutasi </a>
+											<!--<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>-->
+											<!--<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>-->
 										</td>
 									</tr>
 								<?php endforeach; ?>
