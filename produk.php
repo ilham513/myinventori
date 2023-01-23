@@ -78,7 +78,6 @@ if ($result->num_rows > 0) {
 										<th>No</th>
 										<th>Nama Produk</th>
 										<th>Harga</th>
-										<th>Qty</th>
 										<th>Kategori</th>
 										<th>Aksi</th>
 									</tr>
@@ -90,10 +89,10 @@ if ($result->num_rows > 0) {
 										<td><?= $produk['id_produk'] ?></td>
 										<td><?= $produk['nama_produk'] ?></td>
 										<td><?= $produk['harga'] ?></td>
-										<td><?= $produk['qty'] ?></td>
 										<td><?= $produk['nama_kategori'] ?></td>
 										<td>
-											<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>
+											<a href="produk_mutasi.php">Lihat Mutasi </a>
+											<!--<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>-->
 											<!--<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>-->
 										</td>
 									</tr>

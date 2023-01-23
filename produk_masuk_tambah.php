@@ -79,10 +79,10 @@ if ($result->num_rows > 0) {
 					
 					<div class="container">
 						
-						<form method="post" action="produk_tambah_go.php">
+						<form method="post" action="produk_masuk_tambah_go.php">
 						  <div class="form-group">
 							<label for="exampleFormControlSelect1">Nama Produk</label>
-							<select name="id_kategori" class="form-control" id="exampleFormControlSelect1">
+							<select name="id_produk" class="form-control" id="exampleFormControlSelect1">
 							<?php foreach($produk as $produk): ?>
 							  <option value="<?= $produk['id_produk'] ?>"><?= $produk['nama_produk'] ?></option>
 							<?php endforeach; ?>
@@ -90,7 +90,7 @@ if ($result->num_rows > 0) {
 						  </div>
 						  <div class="form-group">
 							<label for="exampleFormControlSelect1">Nama Supplier</label>
-							<select name="id_kategori" class="form-control" id="exampleFormControlSelect1">
+							<select name="id_supplier" class="form-control" id="exampleFormControlSelect1">
 							<?php foreach($supplier as $supplier): ?>
 							  <option value="<?= $supplier['id_supplier'] ?>"><?= $supplier['nama_supplier'] ?></option>
 							<?php endforeach; ?>
@@ -98,15 +98,13 @@ if ($result->num_rows > 0) {
 						  </div>
 						  <div class="form-group">
 							<label for="exampleInputEmail1">Kadaluarsa</label>
-							<input name="nama_produk" type="date" class="form-control">
+							<input name="kadaluarsa" type="date" class="form-control">
 						  </div>
 						  <div class="form-group">
 							<label for="exampleInputEmail1">Qty</label>
-							<input name="harga" type="number" class="form-control">
+							<input name="qty" type="number" class="form-control">
 						  </div>
-						  
-						  <input name="qty" type="hidden" class="form-control" value="0">
-						  
+						  						  
 						  <button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 									

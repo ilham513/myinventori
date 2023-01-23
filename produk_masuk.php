@@ -4,16 +4,16 @@ include '_method.php';
 
 cek_session();
 
-$sql = "SELECT * FROM produk 
-INNER JOIN kategori 
-ON produk.id_kategori = kategori.id_kategori";
+$sql = "SELECT * FROM produk_masuk
+INNER JOIN produk ON produk_masuk.id_produk = produk.id_produk
+INNER JOIN supplier ON produk_masuk.id_supplier = supplier.id_supplier";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $produk[] = $row;
+    $produk_masuk[] = $row;
   }
 } else {
   echo "0 results";
@@ -77,29 +77,22 @@ if ($result->num_rows > 0) {
 									<tr>
 										<th>No</th>
 										<th>Nama Produk</th>
-										<th>Kategori</th>
 										<th>Supplier</th>
 										<th>Kadaluarsa</th>
 										<th>Qty</th>
 										<th>Tanggal Masuk</th>
-										<th>Aksi</th>
 									</tr>
 								</thead>
 								<tbody>
 
-								<?php foreach($produk as $produk): ?>
+								<?php foreach($produk_masuk as $produk_masuk): ?>
 									<tr>
-										<td><?= $produk['id_produk'] ?></td>
-										<td><?= $produk['nama_produk'] ?></td>
-										<td><?= $produk['harga'] ?></td>
-										<td><?= $produk['qty'] ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td>
-											<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>
-											<!--<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>-->
-										</td>
+										<td><?= $produk_masuk['id_masuk'] ?></td>
+										<td><?= $produk_masuk['nama_produk'] ?></td>
+										<td><?= $produk_masuk['nama_supplier'] ?></td>
+										<td><?= $produk_masuk['kadaluarsa'] ?></td>
+										<td><?= $produk_masuk['qty'] ?></td>
+										<td><?= $produk_masuk['tgl_masuk'] ?></td>
 									</tr>
 								<?php endforeach; ?>
 

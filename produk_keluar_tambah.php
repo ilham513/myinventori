@@ -4,13 +4,25 @@ include '_method.php';
 
 cek_session();
 
-$sql = "SELECT * FROM kategori";
+$sql = "SELECT * FROM supplier";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $kategori[] = $row;
+    $supplier[] = $row;
+  }
+} else {
+  echo "0 results";
+}
+
+$sql = "SELECT * FROM produk";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $produk[] = $row;
   }
 } else {
   echo "0 results";
@@ -62,29 +74,25 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Tambah Produk</h1>
+						<h1 class="h3 mb-0 text-gray-800">Tambah Produk Keluar</h1>
 					</div>
 					
 					<div class="container">
 						
-						<form method="post" action="produk_tambah_go.php">
+						<form method="post" action="produk_keluar_tambah_go.php">
 						  <div class="form-group">
-							<label for="exampleInputEmail1">Nama Produk</label>
-							<input name="nama_produk" type="text" class="form-control">
-						  </div>
-						  <div class="form-group">
-							<label for="exampleFormControlSelect1">Kategori</label>
-							<select name="id_kategori" class="form-control" id="exampleFormControlSelect1">
-							<?php foreach($kategori as $kategori): ?>
-							  <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
+							<label for="exampleFormControlSelect1">Nama Produk</label>
+							<select name="id_produk" class="form-control" id="exampleFormControlSelect1">
+							<?php foreach($produk as $produk): ?>
+							  <option value="<?= $produk['id_produk'] ?>"><?= $produk['nama_produk'] ?></option>
 							<?php endforeach; ?>
 							</select>
 						  </div>
 						  <div class="form-group">
-							<label for="exampleInputEmail1">Harga</label>
-							<input name="harga" type="number" class="form-control">
+							<label for="exampleInputEmail1">Qty</label>
+							<input name="qty_keluar" type="number" class="form-control">
 						  </div>
-						  
+						  						  
 						  <button type="submit" class="btn btn-primary">Submit</button>
 						</form>
 									
