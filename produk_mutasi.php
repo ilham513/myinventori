@@ -6,21 +6,89 @@ cek_session();
 
 $id_produk = $_GET['id_produk'];
 
-$sql = "SELECT * FROM produk 
-INNER JOIN kategori 
-ON produk.id_kategori = kategori.id_kategori
-WHERE produk.id_produk = $id_produk";
+$sql = "SELECT * FROM produk WHERE id_produk = $id_produk";
 
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $produk[] = $row;
+    $produk = $row;
   }
 } else {
   echo "0 results";
 }
+
+
+$sql = "SELECT sum(qty) AS qty FROM produk_masuk WHERE id_produk = $id_produk";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $produk_masuk = $row;
+  }
+} else {
+  echo "0 results";
+}
+
+$sql = "SELECT sum(qty_keluar) AS qty_keluar FROM produk_keluar WHERE id_produk = $id_produk";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $produk_keluar = $row;
+  }
+} else {
+  echo "0 results";
+}
+
+$stok_tersedia = $produk_masuk['qty'] - $produk_keluar['qty_keluar'];
+
+
+$sql = "SELECT * 
+FROM produk_masuk 
+INNER JOIN produk
+ON produk_masuk.id_produk = produk.id_produk
+INNER JOIN supplier
+ON produk_masuk.id_supplier = supplier.id_supplier
+WHERE produk_masuk.id_produk = $id_produk
+ORDER BY produk_masuk.kadaluarsa";
+
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    $produk_masuk_array[] = $row;
+  }
+} else {
+  echo "0 results";
+}
+
+foreach($produk_masuk_array as $produk_masuk_array){
+	$x = 1; 
+	
+	while($x <= $produk_masuk_array['qty']) {
+	  $produk_masuk_array_tmp[] = $produk_masuk_array;
+	  $x++;
+	} 
+	
+	unset($x);
+}
+
+$produk_masuk_array_tmp = array_slice($produk_masuk_array_tmp,$produk_keluar['qty_keluar']);
+
+$result = array();
+foreach ($produk_masuk_array_tmp as $element) {
+    $result[$element['kadaluarsa']][] = $element;
+}
+
+// var_dump($result);die();
+
 ?>
 
 <!DOCTYPE html>
@@ -68,9 +136,7 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Mutasi Produk</h1>
-						<a href="produk_tambah.php" class="btn btn-success shadow-sm">
-						<i class="fas fa-plus mr-1"></i> Tambah Produk</a>
+						<h1 class="h3 mb-0 text-gray-800">Mutasi <?= $produk['nama_produk'] ?></h1>
 					</div>
 					
 					<div class="container">
@@ -78,34 +144,58 @@ if ($result->num_rows > 0) {
 							<table class="table table-bordered" id="dataTable" cellspacing="0">
 								<thead class="table-dark">
 									<tr>
-										<th>No</th>
 										<th>Nama Produk</th>
-										<th>Harga</th>
-										<th>Kategori</th>
-										<th>Aksi</th>
+										<th>Stok Masuk</th>
+										<th>Stok Keluar</th>
+										<th>Stok Tersedia</th>
 									</tr>
 								</thead>
 								<tbody>
-
-								<?php foreach($produk as $produk): ?>
 									<tr>
-										<td><?= $produk['id_produk'] ?></td>
 										<td><?= $produk['nama_produk'] ?></td>
-										<td><?= $produk['harga'] ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td>
-											<a href="produk_mutasi.php">Lihat Mutasi </a>
-											<!--<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>-->
-											<!--<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>-->
-										</td>
+										<td><?= $produk_masuk['qty'] ?></td>
+										<td><?= $produk_keluar['qty_keluar'] ?></td>
+										<td><?= $stok_tersedia ?></td>
 									</tr>
-								<?php endforeach; ?>
-
 								</tbody>
 							</table>						
 								
 						</div>
 					</div>
+					
+					
+					<!-- Page Heading -->
+					<div class="d-sm-flex align-items-center justify-content-between mb-4">
+						<h1 class="h3 mb-0 text-gray-800">Produk Tersedia (Kadaluarsa)</h1>
+					</div>
+					
+					<div class="container">
+						<div class="row bg-white">
+							<table class="table table-bordered" id="dataTable" cellspacing="0">
+								<thead class="table-dark">
+									<tr>
+										<th>Nama Produk</th>
+										<th>Nama Supplier</th>
+										<th>Kadaluarsa</th>
+										<th>Qty</th>
+									</tr>
+								</thead>
+								<tbody>
+								<?php foreach($result as $result): ?>
+									<tr>
+										<td><?= $result[0]['nama_produk'] ?></td>
+										<td><?= $result[0]['nama_supplier'] ?></td>
+										<td><?= $result[0]['kadaluarsa'] ?></td>
+										<td><?= count($result) ?></td>
+									</tr>
+								<?php endforeach; ?>
+								</tbody>
+							</table>						
+								
+						</div>
+					</div>
+					
+					
                 </div>
                 <!-- /.container-fluid -->
 
