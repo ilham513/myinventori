@@ -83,7 +83,7 @@ if ($result->num_rows > 0) {
 										<td><?= $kategori['id_kategori'] ?></td>
 										<td><?= $kategori['nama_kategori'] ?></td>
 										<td>
-											<!--<button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button>-->
+											<a href="kategori_edit.php?id_kategori=<?= $kategori['id_kategori'] ?>"><button type="button" class="btn btn-sm btn-success"><i class="fas fa-edit"></i></button></a>
 											<a href="kategori_delete_go.php?id_kategori=<?= $kategori['id_kategori'] ?>"><button type="button" class="btn btn-sm btn-danger"><i class="far fa-trash-alt"></i></button></a>
 										</td>
 									</tr>

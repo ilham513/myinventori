@@ -4,16 +4,15 @@ include '_method.php';
 
 cek_session();
 
-$sql = "SELECT * FROM produk 
-INNER JOIN kategori 
-ON produk.id_kategori = kategori.id_kategori";
+$id_kategori = $_GET['id_kategori'];
 
+$sql = "SELECT * FROM kategori WHERE id_kategori = '$id_kategori'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
   // output data of each row
   while($row = $result->fetch_assoc()) {
-    $produk[] = $row;
+    $kategori = $row;
   }
 } else {
   echo "0 results";
@@ -65,43 +64,22 @@ if ($result->num_rows > 0) {
                 <div class="container-fluid">
 					<!-- Page Heading -->
 					<div class="d-sm-flex align-items-center justify-content-between mb-4">
-						<h1 class="h3 mb-0 text-gray-800">Produk</h1>
-						<a href="produk_tambah.php" class="btn btn-success shadow-sm">
-						<i class="fas fa-plus mr-1"></i> Tambah Produk</a>
+						<h1 class="h3 mb-0 text-gray-800">Ubah Kategori</h1>
 					</div>
 					
 					<div class="container">
-						<div class="row bg-white">
-							<table class="table table-bordered" id="dataTable" cellspacing="0">
-								<thead class="table-dark">
-									<tr>
-										<th>No</th>
-										<th>Nama Produk</th>
-										<th>Harga</th>
-										<th>Kategori</th>
-										<th>Aksi</th>
-									</tr>
-								</thead>
-								<tbody>
-
-								<?php foreach($produk as $produk): ?>
-									<tr>
-										<td><?= $produk['id_produk'] ?></td>
-										<td><?= $produk['nama_produk'] ?></td>
-										<td><?= number_format($produk['harga']) ?></td>
-										<td><?= $produk['nama_kategori'] ?></td>
-										<td>
-											<a href="produk_mutasi.php?id_produk=<?= $produk['id_produk'] ?>">Lihat Mutasi </a> | 
-											<a href="produk_edit.php?id_produk=<?= $produk['id_produk'] ?>">Edit</a> | 
-											<a href="produk_delete_go.php?id_produk=<?= $produk['id_produk'] ?>">Hapus</a>
-										</td>
-									</tr>
-								<?php endforeach; ?>
-
-								</tbody>
-							</table>						
-								
-						</div>
+						
+						<form method="post" action="kategori_edit_go.php">
+						  <input type="hidden" name="id_kategori" value="<?= $kategori['id_kategori']  ?>">
+						
+						  <div class="form-group">
+							<label for="exampleInputEmail1">Nama Kategori</label>
+							<input name="nama_kategori" type="text" class="form-control" value="<?= $kategori['nama_kategori']  ?>">
+						  </div>
+						  
+						  <button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+									
 					</div>
                 </div>
                 <!-- /.container-fluid -->

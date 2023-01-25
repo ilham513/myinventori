@@ -3,6 +3,30 @@ include '_koneksi.php';
 include '_method.php';
 
 cek_session();
+
+$sql = "SELECT * FROM produk";
+$result = $conn->query($sql);
+$jumlah_produk = $result->num_rows ;
+
+
+$sql = "SELECT * FROM kategori";
+$result = $conn->query($sql);
+$jumlah_kategori = $result->num_rows ;
+
+
+$sql = "SELECT * FROM supplier";
+$result = $conn->query($sql);
+$jumlah_supplier = $result->num_rows ;
+
+$sql = "SELECT SUM(qty) AS qty FROM produk_masuk";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$jumlah_produk_masuk = $row['qty'] ;
+
+$sql = "SELECT SUM(qty_keluar) AS qty_keluar FROM produk_keluar";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$jumlah_produk_keluar = $row['qty_keluar'] ;
 ?>
 
 <!DOCTYPE html>
@@ -106,7 +130,11 @@ cek_session();
 								<div class="card bg-c-blue order-card" onclick="window.location.replace('produk.php');">
 									<div class="card-block">
 										<h4 class="m-b-20">Produk</h4>
-										<p class="m-b-0">Jumlah Produk<span class="f-right">351</span></p>
+										<p class="m-b-0">
+											Jumlah Produk<span class="f-right"><?= $jumlah_produk ?></span><br/>
+											Produk Masuk<span class="f-right"><?= $jumlah_produk_masuk ?></span><br/>
+											Produk Keluar<span class="f-right"><?= $jumlah_produk_keluar ?></span><br/>
+										</p>
 									</div>
 								</div>
 							</div>
@@ -115,7 +143,7 @@ cek_session();
 								<div class="card bg-c-green order-card" onclick="window.location.replace('kategori.php');">
 									<div class="card-block">
 										<h4 class="m-b-20">Kategori</h4>
-										<p class="m-b-0">Jumlah Kategori<span class="f-right">351</span></p>
+										<p class="m-b-0">Jumlah Kategori<span class="f-right"><?= $jumlah_kategori ?></span></p>
 									</div>
 								</div>
 							</div>
@@ -124,7 +152,7 @@ cek_session();
 								<div class="card bg-c-yellow order-card" onclick="window.location.replace('supplier.php');">
 									<div class="card-block">
 										<h4 class="m-b-20">Supplier</h4>
-										<p class="m-b-0">Jumlah Supplier<span class="f-right">351</span></p>
+										<p class="m-b-0">Jumlah Supplier<span class="f-right"><?= $jumlah_supplier ?></span></p>
 									</div>
 								</div>
 							</div>								

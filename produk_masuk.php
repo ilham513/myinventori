@@ -6,7 +6,8 @@ cek_session();
 
 $sql = "SELECT * FROM produk_masuk
 INNER JOIN produk ON produk_masuk.id_produk = produk.id_produk
-INNER JOIN supplier ON produk_masuk.id_supplier = supplier.id_supplier";
+INNER JOIN supplier ON produk_masuk.id_supplier = supplier.id_supplier
+ORDER BY id_masuk";
 
 $result = $conn->query($sql);
 
